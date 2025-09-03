@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true', sidebarOpen: window.innerWidth >= 768 }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes - NoteSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        }
+        
+        .dark body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-intense {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .dark .glass-intense {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .note-card {
+            transition: all 0.3s ease;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.2);
+        }
+        
+        .dark .note-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #fef2f2 0%, #ffe4e4 100%);
+        }
+        
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
+        }
+        
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(239, 68, 68, 0.4);
+            border-radius: 10px;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(239, 68, 68, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 glass-intense border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <button @click="sidebarOpen = !sidebarOpen" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 mr-2">
+                        <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                    <div class="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center">
+                        <i class="fas fa-sticky-note text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white">NoteSync</span>
+                </div>
+
+                <div class="hidden md:flex space-x-4">
+                    <a href="#" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">All Notes</a>
+                    <a href="#" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Shared</a>
+                    <a href="#" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Favorites</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" 
+                            class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold cursor-pointer">
+                            JD
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row h-[calc(100vh-73px)]">
+        <!-- Sidebar Filters -->
+        <div x-show="sidebarOpen" @click.away="if (window.innerWidth < 768) sidebarOpen = false" 
+             class="w-full md:w-64 glass-intense border-r border-gray-200 dark:border-gray-800 md:block custom-scrollbar overflow-y-auto"
+             :class="{ 'fixed inset-0 z-40 bg-white dark:bg-gray-900 md:relative': window.innerWidth < 768, 'hidden': !sidebarOpen }">
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Filters</h2>
+                    <button @click="sidebarOpen = false" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                        <i class="fas fa-times text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                </div>
+
+                <!-- Search Box -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" placeholder="Search notes..." class="w-full pl-10 pr-4 py-2 glass rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter by Status -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Status</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Active</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Archived</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Completed</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter by Tags -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Tags</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Work</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Personal</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Ideas</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Research</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Filter by Date -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Date Created</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Last 24 hours</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Last 7 days</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Last 30 days</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">All time</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Sort By -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Sort By</h3>
+                    <select class="w-full glass rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white">
+                        <option>Date Created (Newest)</option>
+                        <option>Date Created (Oldest)</option>
+                        <option>Last Modified</option>
+                        <option>Alphabetical</option>
+                    </select>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
+                        Apply
+                    </button>
+                    <button class="flex-1 px-4 py-2 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30 transition-colors">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 custom-scrollbar overflow-y-auto">
+            <div class="p-4 md:p-6">
+                <!-- Content Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">My Notes</h1>
+                        <p class="text-gray-600 dark:text-gray-400">You have 24 notes</p>
+                    </div>
+                    <button class="mt-4 md:mt-0 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i> New Note
+                    </button>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button class="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium">
+                        All Notes
+                    </button>
+                    <button class="px-4 py-2 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                        Recent
+                    </button>
+                    <button class="px-4 py-2 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                        Favorites
+                    </button>
+                    <button class="px-4 py-2 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                        Shared
+                    </button>
+                    <button class="px-4 py-2 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                        Archived
+                    </button>
+                </div>
+
+                <!-- Notes Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <!-- Note 1 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Project Planning</h3>
+                            <button class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                                <i class="far fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Initial planning for the Q4 product launch with timeline and resource allocation...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs mr-1">JD</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center text-white text-xs mr-1">AS</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-300 flex items-center justify-center text-white text-xs">+2</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">2 hours ago</span>
+                        </div>
+                    </div>
+
+                    <!-- Note 2 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Meeting Notes</h3>
+                            <button class="text-primary-600 dark:text-primary-400">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Key takeaways from the client meeting on Tuesday including action items and deadlines...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs">JD</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Yesterday</span>
+                        </div>
+                    </div>
+
+                    <!-- Note 3 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Research Findings</h3>
+                            <button class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                                <i class="far fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Summary of market research for the new feature with data visualizations and insights...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs mr-1">JD</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center text-white text-xs">RS</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">2 days ago</span>
+                        </div>
+                    </div>
+
+                    <!-- Note 4 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Personal Goals</h3>
+                            <button class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                                <i class="far fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Quarterly personal development goals and progress tracking for skill improvement...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs">JD</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">3 days ago</span>
+                        </div>
+                    </div>
+
+                    <!-- Note 5 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Team Brainstorming</h3>
+                            <button class="text-primary-600 dark:text-primary-400">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Ideas from the team brainstorming session for the upcoming hackathon project...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs mr-1">JD</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center text-white text-xs mr-1">AS</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-300 flex items-center justify-center text-white text-xs mr-1">MJ</div>
+                                <div class="w-6 h-6 rounded-full bg-primary-200 flex items-center justify-center text-white text-xs">+3</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">4 days ago</span>
+                        </div>
+                    </div>
+
+                    <!-- Note 6 -->
+                    <div class="glass-intense rounded-xl p-4 note-card border border-white/20">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-900 dark:text-white">Learning Resources</h3>
+                            <button class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                                <i class="far fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Curated list of resources for learning advanced React patterns and state management...</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-xs">JD</div>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">1 week ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center items-center mt-8">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-1 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 bg-primary-600 text-white rounded-lg font-medium">1</button>
+                        <button class="px-3 py-1 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">2</button>
+                        <button class="px-3 py-1 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">3</button>
+                        <span class="px-2 text-gray-500">...</span>
+                        <button class="px-3 py-1 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">8</button>
+                        <button class="px-3 py-1 glass text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/30 dark:hover:bg-black/30">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Filter Button -->
+    <div x-show="!sidebarOpen" class="fixed bottom-4 right-4 md:hidden">
+        <button @click="sidebarOpen = true" class="w-14 h-14 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-lg">
+            <i class="fas fa-filter text-xl"></i>
+        </button>
+    </div>
+</body>
+</html>

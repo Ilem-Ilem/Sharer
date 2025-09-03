@@ -1,0 +1,347 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Import Google fonts locally via @fontsource */
+
+/* ------------------ Bebas Neue ------------------ */
+@font-face {
+    font-family: "Bebas Neue";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Bebas_Neue/BebasNeue-Regular.ttf");
+}
+
+/* ------------------ Edu NSW ACT Cursive ------------------ */
+@font-face {
+    font-family: "Edu NSW ACT Cursive";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Edu_NSW_ACT_Cursive/EduNSWACTCursive-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Edu NSW ACT Cursive";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/Edu_NSW_ACT_Cursive/static/EduNSWACTCursive-Bold.ttf");
+}
+
+/* ------------------ Fira Code ------------------ */
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 300;
+    src: url("../fonts/Fira_Code/FiraCode-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Fira_Code/static/FiraCode-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/Fira_Code/static/FiraCode-Bold.ttf");
+}
+
+/* ------------------ Great Vibes ------------------ */
+@font-face {
+    font-family: "Great Vibes";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Playwrite_CA/great-vibes-latin-400-normal.woff2");
+}
+
+/* ------------------ Playwrite CA ------------------ */
+@font-face {
+    font-family: "Playwrite CA";
+    font-style: normal;
+    font-weight: 100;
+    src: url("../fonts/Playwrite_CA/static/PlaywriteCA-Light.ttf");
+}
+
+@font-face {
+    font-family: "Playwrite CA";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Playwrite_CA/static/PlaywriteCA-Regular.ttf");
+}
+
+/* ------------------ Satisfy ------------------ */
+@font-face {
+    font-family: "Satisfy";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/satisfy/Satisfy-Regular.ttf");
+}
+
+
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    --color-accent: var(--color-neutral-800);
+    --color-accent-content: var(--color-neutral-800);
+    --color-accent-foreground: var(--color-white);
+    --color-primary-50: #fef2f2;
+    --color-primary-100: #fee2e2;
+    --color-primary-200: #fecaca;
+    --color-primary-300: #fca5a5;
+    --color-primary-400: #f87171;
+    --color-primary-500: #ef4444;
+    --color-primary-600: #dc2626;
+    --color-primary-700: #b91c1c;
+    --color-primary-800: #991b1b;
+    --color-primary-900: #7f1d1d;
+
+    --backdrop-blur-xs: 2px;
+}
+
+@layer theme {
+    .dark {
+        --color-accent: var(--color-white);
+        --color-accent-content: var(--color-white);
+        --color-accent-foreground: var(--color-neutral-800);
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    :root {
+        --font-agbalumo: "Agbalumo", sans-serif;
+        --font-bebas: "Bebas Neue", sans-serif;
+        --font-edu: "Edu NSW ACT Cursive", cursive;
+        --font-fira: "Fira Code", monospace;
+        --font-vibes: "Great Vibes", cursive;
+        --font-playwrite: "Playwrite CA", serif;
+        --font-satisfy: "Satisfy", cursive;
+    }
+
+    .font-agbalumo {
+        font-family: var(--font-agbalumo);
+    }
+
+    .font-bebas {
+        font-family: var(--font-bebas);
+    }
+
+    .font-edu {
+        font-family: var(--font-edu);
+    }
+
+    .font-fira {
+        font-family: var(--font-fira);
+    }
+
+    .font-vibes {
+        font-family: var(--font-vibes);
+    }
+
+    .font-playwrite {
+        font-family: var(--font-playwrite);
+    }
+
+    .font-satisfy {
+        font-family: var(--font-satisfy);
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply  !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.dark body {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a0f0f 100%);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+    background: rgba(20, 20, 20, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+
+.dark .glass-card {
+    background: rgba(15, 15, 15, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(239, 68, 68, 0.4);
+    border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(239, 68, 68, 0.6);
+}
+
+.profile-header {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+}
+
+.dark .profile-header {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+}
+
+.tab-button {
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ef4444;
+    transition: width 0.3s ease;
+}
+
+.tab-button.active::after {
+    width: 100%;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.form-input {
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.dark .form-input:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: #ef4444;
+    background-color: #ef4444;
+}
+
+.toggle-checkbox {
+    transition: all 0.3s ease;
+}
+
+.toggle-label {
+    transition: all 0.3s ease;
+}
+
+.plan-card {
+    transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -10px rgba(239, 68, 68, 0.2);
+}
+
+.dark .plan-card:hover {
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+/* \[:where(&)\]:size-4 {
+    @apply size-4;
+} */

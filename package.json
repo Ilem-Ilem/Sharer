@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "dependencies": {
+        "@alpinejs/mask": "^3.14.9",
+        "@fontsource/agbalumo": "^5.2.7",
+        "@fontsource/bebas-neue": "^5.2.6",
+        "@fontsource/edu-nsw-act-cursive": "^5.2.1",
+        "@fontsource/fira-code": "^5.2.6",
+        "@fontsource/great-vibes": "^5.2.6",
+        "@fontsource/playwrite-ca": "^5.2.8",
+        "@fontsource/satisfy": "^5.2.6",
+        "@fortawesome/fontawesome-free": "^7.0.0",
+        "@tailwindcss/vite": "^4.1.11",
+        "alpinejs": "^3.14.9",
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.7.4",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^2.0",
+        "tailwindcss": "^4.0.7",
+        "vite": "^7.0.4"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "4.9.5",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
+        "lightningcss-linux-x64-gnu": "^1.29.1"
+    }
+}
