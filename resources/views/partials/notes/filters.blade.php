@@ -13,31 +13,13 @@ class="w-full md:w-64 glass-intense border-r border-gray-200 dark:border-gray-80
     <div class="mb-6">
         <div class="relative">
             <input type="text" placeholder="Search notes..."
-                class="w-full pl-10 pr-4 py-2 glass rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white">
+                class="w-full pl-10 pr-4 py-2 glass rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white" wire:model.live='search'>
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <i class="fas fa-search text-gray-500"></i>
             </div>
         </div>
     </div>
 
-    <!-- Filter by Status -->
-    <div class="mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Status</h3>
-        <div class="space-y-2">
-            <label class="flex items-center">
-                <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Active</span>
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Archived</span>
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="rounded text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Completed</span>
-            </label>
-        </div>
-    </div>
 
     <!-- Filter by Tags -->
     <div class="mb-6">
@@ -54,40 +36,6 @@ class="w-full md:w-64 glass-intense border-r border-gray-200 dark:border-gray-80
         </div>
     </div>
 
-    <!-- Filter by Date -->
-    <div class="mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Date Created</h3>
-        <div class="space-y-2">
-            <label class="flex items-center">
-                <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Last 24 hours</span>
-            </label>
-            <label class="flex items-center">
-                <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Last 7 days</span>
-            </label>
-            <label class="flex items-center">
-                <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Last 30 days</span>
-            </label>
-            <label class="flex items-center">
-                <input type="radio" name="date" class="text-primary-600 focus:ring-primary-500">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">All time</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Sort By -->
-    <div class="mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase mb-3">Sort By</h3>
-        <select
-            class="w-full glass rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white">
-            <option>Date Created (Newest)</option>
-            <option>Date Created (Oldest)</option>
-            <option>Last Modified</option>
-            <option>Alphabetical</option>
-        </select>
-    </div>
 
    
 </div>

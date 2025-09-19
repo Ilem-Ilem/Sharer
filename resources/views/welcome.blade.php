@@ -350,7 +350,7 @@
                             <span class="text-4xl font-bold text-gray-900 dark:text-white font-playwrite">$0</span>
                             <span class="text-gray-600 dark:text-gray-400 font-fira">/month</span>
                         </div>
-                        <ul class="mb-8 space-y-3 font-edu">
+                        <ul class="mb-8 space-y-3">
                             <li class="text-white">Up to 5 users</li>
                             <li class="text-white">Basic note collaboration</li>
                             <li class="text-white">5 AI summaries per month</li>
@@ -371,7 +371,7 @@
                             <span class="text-4xl font-bold text-gray-900 dark:text-white font-playwrite">$12</span>
                             <span class="text-gray-600 dark:text-gray-400 font-fira">/user/month</span>
                         </div>
-                        <ul class="mb-8 space-y-3 font-edu">
+                        <ul class="mb-8 space-y-3">
                             <li class="text-white">Unlimited users</li>
                             <li class="text-white">Advanced collaboration tools</li>
                             <li class="text-white">Unlimited AI summaries</li>
@@ -389,7 +389,7 @@
                         <div class="mb-6">
                             <span class="text-4xl font-bold text-gray-900 dark:text-white font-playwrite">Custom</span>
                         </div>
-                        <ul class="mb-8 space-y-3 font-edu text-white">
+                        <ul class="mb-8 space-y-3 text-white">
                             <li class="text-white">Unlimited everything</li>
                             <li class="text-white">Custom AI model training</li>
                             <li class="text-white">On-premise deployment</li>
@@ -419,7 +419,7 @@
                     <div class="glass-intense rounded-2xl p-6 mb-6 border border-white/20">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 font-playwrite">How does the AI
                             summary feature work?</h3>
-                        <p class="text-gray-700 dark:text-gray-300 font-edu">
+                        <p class="text-gray-700 dark:text-gray-300">
                             Our AI uses advanced natural language processing to analyze your notes and extract key
                             points, action items, and insights. It learns from your team's usage patterns to provide
                             increasingly relevant summaries over time.
@@ -429,7 +429,7 @@
                     <div class="glass-intense rounded-2xl p-6 mb-6 border border-white/20">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 font-playwrite">Is my data
                             secure with NoteSync?</h3>
-                        <p class="text-gray-700 dark:text-gray-300 font-edu">
+                        <p class="text-gray-700 dark:text-gray-300">
                             Absolutely. We use end-to-end encryption for all your notes and follow industry best
                             practices for security. Your data is never used to train our AI models without your explicit
                             permission.
@@ -439,7 +439,7 @@
                     <div class="glass-intense rounded-2xl p-6 mb-6 border border-white/20">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 font-playwrite">Can I use
                             NoteSync offline?</h3>
-                        <p class="text-gray-700 dark:text-gray-300 font-edu">
+                        <p class="text-gray-700 dark:text-gray-300">
                             Yes! Our mobile and desktop apps allow you to access and edit your notes offline. Changes
                             will sync automatically once you're back online.
                         </p>
@@ -448,7 +448,7 @@
                     <div class="glass-intense rounded-2xl p-6 mb-6 border border-white/20">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 font-playwrite">How many people
                             can collaborate on a note?</h3>
-                        <p class="text-gray-700 dark:text-gray-300 font-edu">
+                        <p class="text-gray-700 dark:text-gray-300">
                             With our Pro and Enterprise plans, there's no limit to the number of collaborators on a
                             note. The Free plan allows up to 5 users per workspace.
                         </p>

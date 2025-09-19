@@ -23,7 +23,7 @@
                         class="w-10 h-10 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center shadow-lg">
                         <i class="fas fa-sticky-note text-white text-xl"></i>
                     </div>
-                    <span class="text-2xl font-bold text-gray-900 dark:text-white font-playwrite">NoteSync</span>
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white font-playwrite">Sharer</span>
                 </div>
 
                 <!-- Desktop navigation -->
