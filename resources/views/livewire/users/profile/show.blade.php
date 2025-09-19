@@ -42,10 +42,10 @@ new class extends Component {
             </div>
 
             <div class="mt-4 md:mt-0">
-                <button
+                <a href="{{ route('profile.edit') }}"
                     class="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl font-medium hover:from-primary-600 hover:to-primary-700 transition-colors shadow-lg">
                     <i class="fas fa-edit mr-2"></i> Edit Profile
-                </button>
+                </a>
             </div>
         </div>
     </div>
